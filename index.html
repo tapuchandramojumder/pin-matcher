@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pin Generator</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="pin-generator half-width">
+                    <input id="get-random" class="form-control" type="text">
+                    <button id="generateBtn" class="generate-btn">Generate Pin</button>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="input-section half-width">
+                    <input id="matching-input" class="form-control" type="text">
+                    <div class="numbers">
+                        <div class="calc-body">
+                            <div class="calc-button-row">
+
+
+
+                                
+                              <div class="button" id="seven" data-value="7">7</div>
+                              <div class="button"  id ="eight" data-value="8">8</div>
+                              <div class="button" id ="nine" data-value="9">9</div>
+                            </div>
+                            <div class="calc-button-row">
+                              <div class="button" id ="four" data-value="4">4</div>
+                              <div class="button" id ="five" data-value="5">5</div>
+                              <div class="button" id ="six" data-value="6">6</div>
+                            </div>
+                            <div class="calc-button-row">
+                              <div class="button" id ="one" data-value="1">1</div>
+                              <div class="button" id ="two" data-value="2">2</div>
+                              <div class="button" id ="three" data-value="3">3</div>
+                            </div>
+                            <div class="calc-button-row">
+                                <div class="button" ><</div>
+                                <div class="button" id ="zero" data-value="0">0</div>
+                                <div class="button" id="reset">C</div>
+                            </div>
+                            <div>
+                                <button id="submitBtn" type="submit" class="submit-btn">Submit</button>
+                                <p class="action-left"><span id="try"> 3 </span> try left</p>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="notify-section">
+            <p id="pin-unmatched" class="notify">❌ Pin Didn't Match, Please try again</p>
+            <p id="pin-matched" class="notify">✅ Pin Matched... Secret door is opening for you</p>
+        </div>
+    </div>
+    <script type="text/javascript" >
+
+ const submitBtn=document.getElementById("submitBtn");
+             submitBtn.addEventListener("click",function(){
+
+                let getInputValue = document.getElementById("get-random").value;
+                let getParseValue = parseInt(getInputValue);
+        
+                let matchingValue = document.getElementById("matching-input").value;
+                let matchingParseValue = parseInt(matchingValue);
+
+                let tryValue = document.getElementById("try").innerText;
+                let tryParseValue = parseInt(tryValue);
+                document.getElementById("try").innerText=tryParseValue-1; 
+
+             if(getParseValue===matchingParseValue){
+                  let pinMatched=document.getElementById("pin-matched");
+                      pinMatched.style.display ="block";
+                }
+             if(getParseValue!=matchingParseValue){
+                    let pinUnMatched=document.getElementById("pin-unmatched");
+                      pinUnMatched.style.display ="block";
+                     
+                     
+                }    
+               
+             })
+
+      const generateBtn= document.getElementById("generateBtn");
+            generateBtn.addEventListener("click",function(){
+                const getInput = document.getElementById("get-random");
+                const randomNum = Math.floor(1000 + Math.random() * 9000);
+                getInput.value = randomNum;
+            })
+      function getResult(id){
+
+         let idName = document.getElementById(id);
+         idName.addEventListener("click",function(){
+             
+             let matchingValue=document.getElementById("matching-input").value;
+            let itemValue = document.getElementById(id).getAttribute("data-value"); 
+            
+            document.getElementById("matching-input").value+=itemValue;
+            if(id=="reset"){
+                    // if value = value + itemValue or 0 = 0 +"7"
+                     // 7 = 7+"7"  
+                    //  console.log(matchingValue)
+                document.getElementById("matching-input").value=" ";
+             }
+         
+        })
+      }
+      // arrow < button and try button does't fix yet
+     //all button work with this function
+      getResult("one");
+      getResult("two");
+      getResult("three");
+      getResult("four");
+      getResult("five");
+      getResult("six");
+      getResult("seven");
+      getResult("eight");
+      getResult("nine");
+      getResult("zero");
+      getResult("reset");
+    </script>
+</body>
+</html>
